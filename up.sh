@@ -3,7 +3,7 @@
 set -euo pipefail
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
 
-deploy() {
+deploy() (
   cd "$1"
 
   if [[ -f prod.sops.env && "$1" == caddy ]]; then
@@ -14,7 +14,7 @@ deploy() {
   else
     docker compose up -d --build --pull missing
   fi
-}
+)
 
 deploy 'caddy'
 
