@@ -8,13 +8,9 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: linuxunsw-vm-deploy
-  cancel-in-progress: false
-
 jobs:
   deploy:
-    runs-on: [self-hosted, linuxunsw-vm]
+    runs-on: [linuxunsw-vm]
     steps:
       - uses: actions/checkout@v4
       - name: Update persistent checkout and deploy
