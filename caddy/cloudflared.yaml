@@ -1,0 +1,9 @@
+tunnel: 4e4686ca-3d9d-4760-876f-de5d372e63e6
+credentials-file: /run/secrets/cloudflared_credentials
+no-autoupdate: true
+ingress:
+  - hostname: linuxunsw.org
+    service: http://caddy:8080
+  - hostname: vault.linuxunsw.org
+    service: http://caddy:8081
+  - service: http_status:404

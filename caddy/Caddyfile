@@ -1,0 +1,7 @@
+:8080 {
+    reverse_proxy website:80
+}
+
+:8081 {
+    reverse_proxy vaultwarden:80
+}

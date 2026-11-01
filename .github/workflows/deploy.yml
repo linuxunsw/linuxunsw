@@ -1,0 +1,35 @@
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: linuxunsw-vm-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linuxunsw-vm]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update persistent checkout and deploy
+        shell: bash
+        run: |
+          set -euo pipefail
+          repo="$HOME/linuxunsw"
+          if [[ ! -e "$repo" ]]; then
+            mkdir -p "$repo"
+            git -C "$repo" init -q
+          fi
+          if [[ ! -d "$repo/.git" ]]; then
+            echo "$repo exists but is not a Git checkout" >&2
+            exit 1
+          fi
+          git -C "$repo" fetch --no-tags "$GITHUB_WORKSPACE" "$GITHUB_SHA"
+          git -C "$repo" reset --hard "$GITHUB_SHA"
+          (cd "$repo" && ./up.sh)

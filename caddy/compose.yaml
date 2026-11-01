@@ -1,0 +1,30 @@
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --config /etc/cloudflared/config.yaml run
+    restart: unless-stopped
+    volumes:
+      - ./cloudflared.yaml:/etc/cloudflared/config.yaml:ro
+    secrets:
+      - cloudflared_credentials
+    networks:
+      - web
+
+  caddy:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    networks:
+      - web
+      - vaultwarden
+
+networks:
+  web:
+    name: caddy
+  vaultwarden:
+    name: vaultwarden-web
+
+secrets:
+  cloudflared_credentials:
+    environment: CLOUDFLARED_CREDENTIALS

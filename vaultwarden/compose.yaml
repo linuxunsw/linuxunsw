@@ -1,0 +1,16 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server:1.37.4
+    restart: unless-stopped
+    environment:
+      DOMAIN: https://vault.linuxunsw.org
+      SIGNUPS_ALLOWED: "false"
+    volumes:
+      - ./data:/data
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
+    name: vaultwarden-web

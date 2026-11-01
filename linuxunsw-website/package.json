@@ -1,0 +1,19 @@
+{
+  "name": "linuxunsw-website",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "preview-host": "vite preview --host"
+  },
+  "devDependencies": {
+    "eslint": "^9.20.1",
+    "vite": "^6.4.3"
+  },
+  "dependencies": {
+    "three": "^0.173.0"
+  }
+}
