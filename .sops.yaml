@@ -1,16 +1,24 @@
-people:
-  - &liam ssh: [ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIo5vF21KhhWGIUQNAUJF5jeLJAvpabvl5h6YocVXebJ]
-  - &maddy ssh: [ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFDn/kKReFuoqkqb5PQE0WC2OTCX/5FGHyBNrkN5gw8G]
-
-machines:
-  - &linuxunsw-vm ssh: [ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAGH1VzSdBBZuOfQtWhWG69cxhPJGyJRxKrboDk6aSj0]
-
-teams:
-  - &executives { merge: [*liam] }
-  - &subcommittee { merge: [*maddy] }
+#people:
+#  - &liam ssh: [ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIo5vF21KhhWGIUQNAUJF5jeLJAvpabvl5h6YocVXebJ]
+#  - &maddy ssh: [ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFDn/kKReFuoqkqb5PQE0WC2OTCX/5FGHyBNrkN5gw8G]
+#
+#machines:
+#  - &linuxunsw-vm ssh: [ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAGH1VzSdBBZuOfQtWhWG69cxhPJGyJRxKrboDk6aSj0]
+#
+#teams:
+#  executives: &executives { merge: [*liam] }
+#  subcommittee: &subcommittee { merge: [*maddy] }
+#
+#creation_rules:
+#  - path_regex: ^[^/]+/prod\.sops\.env$
+#    encrypted_regex: ^(data|stringData)$
+#    key_groups:
+#      - merge: [{age: [*executives]}, {age: [*linuxunsw-vm]}]
 
 creation_rules:
   - path_regex: ^[^/]+/prod\.sops\.env$
-    encrypted_regex: ^(data|stringData)$
     key_groups:
-      - merge: [{age: *executives}, {age: [*linuxunsw-vm]}]
+      - age:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIo5vF21KhhWGIUQNAUJF5jeLJAvpabvl5h6YocVXebJ
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFDn/kKReFuoqkqb5PQE0WC2OTCX/5FGHyBNrkN5gw8G
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAGH1VzSdBBZuOfQtWhWG69cxhPJGyJRxKrboDk6aSj0
